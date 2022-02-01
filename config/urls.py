@@ -13,12 +13,20 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
+from base.views.cart_views import AddCartView, CartListView
 from django.contrib import admin
 from django.urls import path
 from base import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+
+    #cart
+    path('cart/remove/<str:pk>/', views.remove_from_cart),
+    path('cart/add/', views.AddCartView.as_view()),
+
+
+    path('cart/', views.CartListView.as_view()), #カートページ
 
     # Items
     path('items/<str:pk>/', views.ItemDetailView.as_view()),
