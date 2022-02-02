@@ -3,9 +3,11 @@ from django.conf import settings
 from django.views.generic import View, ListView
 from base.models import Item
 from collections import OrderedDict
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.decorators import login_required
 
 
-class CartListView(ListView):
+class CartListView(LoginRequiredMixin, ListView):
     model = Item
     template_name = 'pages/cart.html'
 
@@ -38,7 +40,7 @@ class CartListView(ListView):
 
 
 
-class AddCartView(View):
+class AddCartView(LoginRequiredMixin, View):
 
     def post(self, request): #postとかくと、ポストとしてきた場合の処理が定義できる
         item_pk = request.POST.get('item_pk') #どのアイテムを取ってくるか取得する Viewではhiddenの設定なので見えていない
@@ -55,6 +57,7 @@ class AddCartView(View):
         return redirect('/cart/')
 
 
+@login_required
 def remove_from_cart(request, pk):
     cart = request.session.get('cart', None)
     if cart is not None:
