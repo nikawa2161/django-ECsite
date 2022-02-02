@@ -76,6 +76,8 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+
+                'config.custom_context_processors.base',  # 追記
             ],
         },
     },
@@ -168,3 +170,7 @@ MESSAGE_TAGS = {
     messages.INFO: 'rounded-0 alert alert-info',
     messages.DEBUG: 'rounded-0 alert alert-secondary',
 }
+
+
+# custom_context_processors
+TITLE = 'VegeKet'
